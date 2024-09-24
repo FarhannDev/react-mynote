@@ -1,21 +1,21 @@
 const todos: Todo[] = [
   {
     id: 1,
-    tasks: 'Ini adalah tugas pertama',
-    completed: 'uncompleted',
+    task: 'Ini adalah tugas pertama',
+    completed: true,
     createdAt: new Date().toISOString(),
   },
   {
     id: 2,
-    tasks: 'Ini adalah tugas kedua',
-    completed: 'completed',
+    task: 'Ini adalah tugas kedua',
+    completed: true,
     deadline: new Date().toISOString(),
     createdAt: new Date().toISOString(),
   },
   {
     id: 3,
-    tasks: 'Ini adalah tugas ketiga',
-    completed: 'completed',
+    task: 'Ini adalah tugas ketiga',
+    completed: false,
     createdAt: new Date().toISOString(),
   },
 ];

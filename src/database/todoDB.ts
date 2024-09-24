@@ -37,34 +37,45 @@ export const dbPromise = (async () => {
   }
 })();
 
-export const addTodo = async (task: string) => {
-  const db: IDBPDatabase<TodoDB> = await dbPromise;
-  const id = await db.add(STORE_NAME, {
-    task,
-    completed: false,
-    createdAt: new Date().toISOString(),
-  });
-
-  return id;
+export const addTodo = async (newTodo: Todo) => {
+  try {
+    const db: IDBPDatabase<TodoDB> = await dbPromise;
+    return db.add(STORE_NAME, newTodo);
+  } catch (error) {
+    console.error('Failed to add new todo:', error);
+    throw new Error('Failed to add todo. Please try again.');
+  }
 };
 
 export const getTodos = async () => {
-  const db: IDBPDatabase<TodoDB> = await dbPromise;
-  return db.getAll('todos');
+  try {
+    const db: IDBPDatabase<TodoDB> = await dbPromise;
+    return db.getAll('todos');
+  } catch (error) {
+    console.error('Failed to retrieve todos:', error);
+    throw new Error('Failed to retrieve todos. Please try again.');
+  }
 };
 
-export const updateTodo = async (id: number, completed: boolean) => {
-  const db: IDBPDatabase<TodoDB> = await dbPromise;
-  const todo = await db.get(STORE_NAME, id);
-  if (todo) {
-    todo.completed = completed;
-    await db.put(STORE_NAME, todo);
+export const updateTodo = async (id: number, updateTodo: Todo) => {
+  try {
+    const db: IDBPDatabase<TodoDB> = await dbPromise;
+    const todo = await db.get(STORE_NAME, id);
+    if (todo) {
+      await db.put(STORE_NAME, { id, ...updateTodo });
+    }
+  } catch (error) {
+    console.error('Failed to add new todos:', error);
+    throw new Error('Failed to add todos. Please try again.');
   }
 };
 
 export const deleteTodo = async (id: number) => {
-  const db: IDBPDatabase<TodoDB> = await dbPromise;
-  const removeTodo = await db.delete(STORE_NAME, id);
-
-  return removeTodo;
+  try {
+    const db: IDBPDatabase<TodoDB> = await dbPromise;
+    return await db.delete(STORE_NAME, id);
+  } catch (error) {
+    console.error(`Failed to delete todos with id ${id}:`, error);
+    throw new Error('Failed to delete todos. Please try again.');
+  }
 };

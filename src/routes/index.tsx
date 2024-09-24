@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from './rootLayout';
+import HomeView from '../views/HomeView';
 
 const router = createBrowserRouter(
   [
@@ -10,7 +11,7 @@ const router = createBrowserRouter(
       children: [
         {
           index: true,
-          element: <div>Halaman utama</div>,
+          element: <HomeView />,
         },
       ],
     },

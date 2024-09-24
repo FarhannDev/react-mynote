@@ -1,7 +1,7 @@
 interface Todo {
-  id: string | number;
-  tasks: string;
-  completed: TodoCompleted;
+  id?: number;
+  task: string;
+  completed: boolean;
   deadline?: string;
   createdAt: string;
 }
